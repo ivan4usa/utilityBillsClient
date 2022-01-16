@@ -1,0 +1,169 @@
+@import "~bootstrap/scss/bootstrap";
+@import "./assets/scss/light-bootstrap-dashboard-pro-react";
+@import "./assets/css/demo.css";
+@import '~react-toastify/dist/ReactToastify.min.css';
+@import "~react-datepicker/src/stylesheets/datepicker";
+
+
+@font-face {
+  font-family: "Digital Dismay";
+  src: url("./assets/fonts/DigitalDismay.woff2") format("woff2"),
+  url("./assets/fonts/DigitalDismay.woff") format("woff"),
+  url("./assets/fonts/DigitalDismay.ttf") format("truetype"),
+  url("./assets/fonts/DigitalDismay.eot") format("embedded-opentype"),
+  url("./assets/fonts/DigitalDismay.otf") format("opentype"),
+  url("./assets/fonts/DigitalDismay.svg") format("svg");
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.animated-card {
+  cursor: pointer;
+}
+.animated-card:hover, .animated-card:active {
+  box-shadow: 0 0 4px 5px #c28585;
+  transform: scale3d(1.05,1.05,4);
+  transition: all .5s ease-out;
+}
+
+.mw-102 {
+  min-width: 102px;
+}
+
+.mw-110 {
+  min-width: 110px;
+}
+
+.min {
+  white-space: nowrap;
+}
+
+.bill-date-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: 5.55em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 7.5em;
+}
+
+.bill-date {
+  background: $warning-color;
+  color: white;
+  font-size: .9em;
+  padding: .15em 0;
+  border-radius: 5px;
+  margin-bottom: .25em;
+  text-align: center;
+  width: 6.5em;
+}
+
+.bill-counter {
+  background-color: #fbf6f6;
+  color: $dark;
+  border: 1px solid #e5c4c4;
+  font-family: 'Digital Dismay', serif;
+  font-size: 1.2em;
+  padding: .1em;
+  display: inline;
+  margin: 0;
+}
+
+.bill-amount {
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  margin-left: auto;
+  color: $warning-color;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.bill-comment {
+  font-size: .8em;
+  color: $dark-gray;
+  padding: .25em;
+}
+
+.toggle-menu-btn {
+  background-color: #2e2d2d;
+  border: none;
+}
+
+.toggle-menu-btn[data-color="azure"] {
+  background-color: #33c6e8;
+}
+
+.toggle-menu-btn[data-color="green"] {
+  background-color: #87c524;
+}
+
+.toggle-menu-btn[data-color="orange"] {
+  background-color: #f8a13a;
+}
+
+.toggle-menu-btn[data-color="red"] {
+  background-color: #f4434c;
+}
+
+.toggle-menu-btn[data-color="purple"] {
+  background-color: #9368e3;
+}
+
+.icon-medium {
+  font-size: 2em;
+  min-height: 24px;
+}
+
+.input-counter {
+  max-width: 6em;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  width: auto!important;
+}
+
+td.min {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.flex-basis-content {
+  flex-basis: 0;
+}
+
+.bill-card-footer {
+  color: white;
+  text-align: end;
+  line-height: 1.5em;
+  font-size: 1em;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nav-icons .nav-item .nav-link.active {
+  background-color: #ffffff !important;
+  border: 1px solid #ffa534!important;
+  border-radius: 5px;
+  color: #ffa534;
+  transition: all .9s ease-out;
+}
+
+.chart-icon-list {
+  content: " ";
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+}

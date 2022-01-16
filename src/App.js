@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext, useEffect} from "react";
+import {Route, Routes} from "react-router-dom";
+import Auth from "./layouts/Auth";
+import Admin from "./layouts/Admin";
+import {AuthContext} from "./context/auth/AuthContext";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const {isAuthenticated, autoLogin} = useContext(AuthContext);
+    useEffect(() => {
+        autoLogin();
+    }, []);
+    return (
+        <Routes>
+            {isAuthenticated ? <Route path={'/*'} element={<Admin/>}/> : <Route path={'/*'} element={<Auth/>}/>}
+        </Routes>
+    );
 }
-
 export default App;

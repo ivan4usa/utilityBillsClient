@@ -3,7 +3,7 @@ import {AccountReducer} from "./AccountReducer";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {AccountContext} from "./AccountContext";
-import {ADD_ACCOUNT, DELETE_ACCOUNT, EDIT_ACCOUNT, GET_ACCOUNTS} from "./AccountConstants";
+import {ADD_ACCOUNT, DELETE_ACCOUNT, EDIT_ACCOUNT, GET_ACCOUNT_BY_ID, GET_ACCOUNTS} from "./AccountConstants";
 import {configForAxiosRequests} from "../global/Configs";
 
 export const AccountState = ({children}) => {
@@ -57,7 +57,6 @@ export const AccountState = ({children}) => {
             })
     }
 
-
     const deleteAccount = async (id) => {
         await axios.delete(process.env.REACT_APP_SERVER_URI + `/api/account/delete/${id}`, configForAxiosRequests)
             .then(() => {
@@ -71,11 +70,28 @@ export const AccountState = ({children}) => {
             })
     }
 
-    const {accounts} = state;
+    const findAccountById = async (id) => {
+        await axios.get(process.env.REACT_APP_SERVER_URI + `/api/account/${id}`, configForAxiosRequests)
+            .then((response) => {
+                dispatch({
+                    type: GET_ACCOUNT_BY_ID,
+                    payload: response.data
+                })
+            })
+            .catch(error => {
+                toast.error(error);
+            })
+    }
+
+    const fetchAccountById = (id) => {
+        return  axios.get(process.env.REACT_APP_SERVER_URI + `/api/account/${id}`, configForAxiosRequests);
+    }
+
+    const {accounts, currentAccount} = state;
 
     return (
         <AccountContext.Provider
-            value={{getAllAccounts, addAccount, editAccount, deleteAccount, accounts}}>
+            value={{getAllAccounts, addAccount, editAccount, deleteAccount, findAccountById, fetchAccountById, accounts, currentAccount}}>
             {children}
         </AccountContext.Provider>
     )

@@ -9,6 +9,14 @@ import axios from "axios";
 
 const DashboardPage = () => {
 
+    const initialForm = {
+        name: '',
+        country: '',
+        city: '',
+        address: '',
+        zip: ''
+    };
+
     const {houses, addHouse} = useContext(HouseContext);
 
     // Modal
@@ -18,13 +26,7 @@ const DashboardPage = () => {
 
     // Form
 
-    const [form, setForm] = useState({
-        name: '',
-        country: '',
-        city: '',
-        address: '',
-        zip: ''
-    });
+    const [form, setForm] = useState(initialForm);
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
@@ -39,6 +41,7 @@ const DashboardPage = () => {
         }
         addHouse(house);
         setShowAddHouseModal(false);
+        setForm(initialForm);
     }
 
     const handleChangeInputForm = (event) => {
@@ -105,7 +108,6 @@ const DashboardPage = () => {
                 </Col>
             </Row>
 
-
             <Modal show={showAddHouseModal} centered onHide={addHouseModalClose}>
                 <Modal.Header>
                     <h3 className="py-0 my-0">New House</h3>
@@ -113,7 +115,7 @@ const DashboardPage = () => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form onSubmit={handleSubmitForm}>
+                    <Form id="add-house-form" onSubmit={handleSubmitForm}>
                         <Card className="my-1">
                             <Card.Body>
                                 <FormGroup className="my-3">

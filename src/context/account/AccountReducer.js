@@ -4,7 +4,7 @@ const handlers = {
     [ADD_ACCOUNT]: (state, {payload}) => ({...state, accounts: [...state.accounts, payload]}),
     [EDIT_ACCOUNT]: (state, {payload}) => ({...state, accounts: [...state.accounts.filter(account => account.id !== payload.id), payload]}),
     [GET_ACCOUNTS]: (state, {payload}) => ({...state, accounts: payload}),
-    [GET_ACCOUNT_BY_ID]: (state) => ({...state}),
+    [GET_ACCOUNT_BY_ID]: (state, {payload}) => ({...state, currentAccount: payload}),
     [DELETE_ACCOUNT]: (state, {payload}) => ({...state, accounts: state.accounts.filter(account => account.id !== payload)}),
     DEFAULT: state => state
 }

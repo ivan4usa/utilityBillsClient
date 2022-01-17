@@ -250,7 +250,7 @@ export const PaymentTable = (props) => {
                             <th>Date</th>
                             <th>Payment Amount</th>
                             <th className="text-center">File</th>
-                            <th>Actions</th>
+                            <th className="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>

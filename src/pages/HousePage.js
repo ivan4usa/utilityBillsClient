@@ -17,6 +17,16 @@ const HousePage = () => {
     const {addAccount, accounts} = useContext(AccountContext);
     const id = useLocation().pathname.split('house/')[1];
     const navigate = useNavigate();
+    const initialForm = {
+        name: '',
+        icon: '',
+        company: '',
+        edrpou: '',
+        accountNumber: '',
+        houseId: id,
+        house: currentHouse
+    };
+
     useEffect(() => {
         getHouseById(id)
     }, [id, accounts]);
@@ -27,15 +37,7 @@ const HousePage = () => {
     const addAccountModalClose = () => setShowAddAccountModal(false);
 
     // Form
-    const [form, setForm] = useState({
-        name: '',
-        icon: '',
-        company: '',
-        edrpou: '',
-        accountNumber: '',
-        houseId: id,
-        house: currentHouse
-    });
+    const [form, setForm] = useState(initialForm);
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
@@ -51,6 +53,7 @@ const HousePage = () => {
         setShowAddAccountModal(false);
         addAccount(account);
         getAllHouses();
+        setForm(initialForm);
         toast.success('Account have been successfully created', configForColoredToast);
     }
 

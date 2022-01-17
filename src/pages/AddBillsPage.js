@@ -1,4 +1,4 @@
-import React, {forwardRef, useContext, useEffect, useState} from "react";
+import React, {forwardRef, Fragment, useContext, useEffect, useState} from "react";
 import {Button, Card, Col, Container, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import moment from "moment";
 import DatePicker from "react-datepicker";
@@ -122,7 +122,7 @@ export const AddBillsPage = () => {
         setFormValues(newValues);
     }
 
-    const submitForm = (event) => {
+    const onSubmitForm = (event) => {
         event.preventDefault();
         let bills = [];
         formValues.map(item => {
@@ -139,7 +139,8 @@ export const AddBillsPage = () => {
         })
         addBills(bills).then(response => {
             if (response.status === 200 && response.data) {
-                navigate('/account', {replace: true});
+                navigate(`/house/${houseId}`, {replace: true});
+                toast.success('Bills have been created', configForColoredToast);
             } else {
                 toast.error('ERROR: bills NOT created!', configForColoredToast);
             }
@@ -150,7 +151,7 @@ export const AddBillsPage = () => {
 
     return (
         <Container>
-            <ToastContainer />
+            <ToastContainer/>
             <Row>
                 <Col xs="12">
                     <Card>
@@ -177,95 +178,106 @@ export const AddBillsPage = () => {
                         </Card.Header>
                         <hr/>
                         <Card.Body>
-                            <Form onSubmit={(event) => submitForm(event)}>
-                                <Table>
+                            <Form onSubmit={(event) => onSubmitForm(event)}>
+                                <Table className="table-responsive-md">
                                     <thead>
                                     <tr>
-                                        <th>Account</th>
+                                        {/*<th>Account</th>*/}
                                         <th>Counter start</th>
                                         <th>Counter end</th>
-                                        <th>Difference</th>
+                                        <th className="text-center">Difference</th>
                                         <th>Tariff</th>
                                         <th>Amount</th>
-                                        <th>Comment</th>
-                                        <th>Period</th>
-                                        <th>x</th>
+                                        {/*<th className="text-center">X</th>*/}
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {(formValues && formValues.length > 0) ? formValues.map((value, index) => (
-                                        <tr key={index}>
-                                            <td>
-                                                <FontAwesomeIcon icon={AccountIcons[value?.accountIcon] ?? faTimes}
-                                                                 className="text-warning mr-2"/>{value?.accountName ?? ''}
-                                            </td>
-                                            <td>
-                                                <Input className="input-counter" name={"counterStart-" + index}
-                                                       value={value?.counterStart ?? 0} onInput={(e) => onChangeForm(e)}
-                                                       type="number" step="1" min="0"/>
-                                            </td>
-                                            <td>
-                                                <Input className="input-counter" name={"counterEnd-" + index}
-                                                       value={value?.counterEnd ?? 0} onInput={(e) => onChangeForm(e)}
-                                                       type="number" step="1" min="0"/>
-                                            </td>
-                                            <td className="text-center text-muted">
-                                                <span>{value?.counterEnd - value?.counterStart}</span>
-                                            </td>
-                                            <td className="text-center text-muted">
-                                                <Input className="input-counter" value={value?.tariff ?? ''} type="text"
-                                                       onInput={(e) => onChangeForm(e)} name={"tariff-" + index}/>
-                                            </td>
-                                            <td>
-                                                <Input className="input-counter" name={"amount-" + index} type="number"
-                                                       onInput={(e) => onChangeForm(e)}
-                                                       value={value?.amount ?? 0}
-                                                       step="0.01" min="0"/>
-                                            </td>
-                                            <td>
-                                                <Input type="text" name={"comment-" + index} value={value.comment}
-                                                       maxLength="20"
-                                                       onInput={(e) => onChangeForm(e)}/>
-                                            </td>
-                                            <td className="min">
-                                                <div className="d-flex flex-column">
-                                                    <DatePicker
-                                                        selected={value.dateStart}
-                                                        selectsStart
-                                                        onChange={(date) => changeDate("dateStart", index, date)}
-                                                        startDate={value.dateStart}
-                                                        endDate={value.dateEnd}
-                                                        dateFormat="MMM yyyy"
-                                                        showMonthYearPicker
-                                                        customInput={<CustomInputForDatePicker/>}
-                                                    />
-                                                    <DatePicker
-                                                        selected={value.dateEnd}
-                                                        selectsEnd
-                                                        onChange={(date) => changeDate("dateEnd", index, date)}
-                                                        startDate={value.dateStart}
-                                                        endDate={value.dateEnd}
-                                                        dateFormat="MMM yyyy"
-                                                        showMonthYearPicker
-                                                        customInput={<CustomInputForDatePicker/>}
-                                                    />
-                                                </div>
-                                            </td>
+                                        <Fragment key={index}>
+                                            <tr>
+                                                <td colSpan={4} aria-colspan={4}>
+                                                    <div className="d-flex justify-content-between align-items-center">
 
-                                            <td className="min text-right">
-                                                <OverlayTrigger
-                                                    overlay={<Tooltip>Remove Bill</Tooltip>}
-                                                >
-                                                    <Button
-                                                        className="btn-link btn-xs" type="button"
-                                                        onClick={(e) => deleteBill(index)}
-                                                        variant="danger"
+                                                        <div className="text-nowrap mr-3">
+                                                            <FontAwesomeIcon
+                                                                icon={AccountIcons[value?.accountIcon] ?? faTimes}
+                                                                className="text-warning mr-2"/>{value?.accountName ?? ''}
+                                                        </div>
+
+
+                                                        <Input type="text" name={"comment-" + index}
+                                                               value={value.comment} placeholder="Comment"
+                                                               maxLength="20" className="w-100 form-control-sm"
+                                                               onInput={(e) => onChangeForm(e)}/>
+                                                        <div className="d-flex ml-3">
+                                                            <DatePicker
+                                                                selected={value.dateStart}
+                                                                selectsStart
+                                                                onChange={(date) => changeDate("dateStart", index, date)}
+                                                                startDate={value.dateStart}
+                                                                endDate={value.dateEnd}
+                                                                dateFormat="MMM yyyy"
+                                                                showMonthYearPicker
+                                                                customInput={<CustomInputForDatePicker/>}
+                                                            />
+                                                            <DatePicker
+                                                                selected={value.dateEnd}
+                                                                selectsEnd
+                                                                onChange={(date) => changeDate("dateEnd", index, date)}
+                                                                startDate={value.dateStart}
+                                                                endDate={value.dateEnd}
+                                                                dateFormat="MMM yyyy"
+                                                                showMonthYearPicker
+                                                                customInput={<CustomInputForDatePicker/>}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="text-center">
+                                                    <OverlayTrigger
+                                                        overlay={<Tooltip>Remove Bill</Tooltip>}
                                                     >
-                                                        <FontAwesomeIcon icon={faTimes} className="text-danger"/>
-                                                    </Button>
-                                                </OverlayTrigger>
-                                            </td>
-                                        </tr>
+                                                        <Button
+                                                            className="btn-link btn-xs" type="button"
+                                                            onClick={(e) => deleteBill(index)}
+                                                            variant="danger"
+                                                        >
+                                                            <FontAwesomeIcon icon={faTimes} className="text-danger"/>
+                                                        </Button>
+                                                    </OverlayTrigger>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="border-top-0">
+                                                    <Input className="input-counter" name={"counterStart-" + index}
+                                                           value={value?.counterStart ?? 0}
+                                                           onInput={(e) => onChangeForm(e)}
+                                                           type="number" step="1" min="0"/>
+                                                </td>
+                                                <td className="border-top-0">
+                                                    <Input className="input-counter" name={"counterEnd-" + index}
+                                                           value={value?.counterEnd ?? 0}
+                                                           onInput={(e) => onChangeForm(e)}
+                                                           type="number" step="1" min="0"/>
+                                                </td>
+                                                <td className="border-top-0 text-center text-muted">
+                                                    <span>{value?.counterEnd - value?.counterStart}</span>
+                                                </td>
+                                                <td className="border-top-0">
+                                                    <Input className="input-counter" value={value?.tariff ?? ''}
+                                                           type="text"
+                                                           onInput={(e) => onChangeForm(e)} name={"tariff-" + index}/>
+                                                </td>
+                                                <td className="border-top-0">
+                                                    <Input className="input-counter" name={"amount-" + index}
+                                                           type="number"
+                                                           onInput={(e) => onChangeForm(e)}
+                                                           value={value?.amount ?? 0}
+                                                           step="0.01" min="0"/>
+                                                </td>
+                                            </tr>
+
+                                        </Fragment>
                                     )) : null
                                     }
                                     </tbody>

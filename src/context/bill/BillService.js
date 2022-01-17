@@ -79,3 +79,11 @@ export function getValueWithCurrency(value) {
 export function fetchStatistics(userId, year) {
     return axios.post(process.env.REACT_APP_SERVER_URI + '/api/house/search-statistics', {userId, year}, configForAxiosRequests);
 }
+
+export function editBill(bill) {
+    return axios.put(process.env.REACT_APP_SERVER_URI + '/api/bill/update', bill, configForAxiosRequests);
+}
+
+export function deleteBill(id) {
+    return axios.delete(process.env.REACT_APP_SERVER_URI + `/api/bill/delete/${id}`, configForAxiosRequests);
+}

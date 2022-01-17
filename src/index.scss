@@ -126,7 +126,8 @@ code {
 }
 
 .input-counter {
-  max-width: 6em;
+  min-width: 5em;
+  //max-width: 8em;
 }
 
 .react-datepicker-wrapper, .react-datepicker__input-container {

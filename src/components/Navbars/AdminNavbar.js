@@ -1,6 +1,4 @@
 import React, {useContext} from "react";
-
-// react-bootstrap components
 import {Button, Container, Dropdown, Nav, Navbar,} from "react-bootstrap";
 import {AuthContext} from "../../context/auth/AuthContext";
 
@@ -11,8 +9,6 @@ import {faBars, faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 const AdminNavbar = (props) => {
     const {logout} = useContext(AuthContext);
     const [collapseOpen, setCollapseOpen] = React.useState(false);
-    // const [sidebarImage, setSidebarImage] = React.useState(image3);
-    // const [sidebarBackground, setSidebarBackground] = React.useState();
 
     return (
         <>
@@ -85,8 +81,6 @@ const AdminNavbar = (props) => {
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
-
-
                             <Dropdown as={Nav.Item}>
                                 <Dropdown.Toggle
                                     as={Nav.Link}
@@ -108,7 +102,6 @@ const AdminNavbar = (props) => {
                                     ))}
                                 </Dropdown.Menu>
                             </Dropdown>
-
                             <Dropdown as={Nav.Item}>
                                 <Dropdown.Toggle
                                     as={Nav.Link}
@@ -130,7 +123,6 @@ const AdminNavbar = (props) => {
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
-
                             <Nav.Item>
                                 <Nav.Link
                                     onClick={logout}

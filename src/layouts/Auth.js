@@ -2,7 +2,7 @@ import React from 'react';
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import {Navigate, Route, Routes} from "react-router-dom";
-import img from "../assets/img/full-screen-image-2.jpg";
+import img from "../assets/img/full-screen-image-7.jpg";
 import {ToastContainer} from "react-toastify";
 
 const Auth = () => {
@@ -20,7 +20,8 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
-            <div className="full-page-background" style={{backgroundImage: 'url(' + img + ')'}}/>
+            <div className="full-page-background" style={{backgroundImage: 'url(' +
+                    (localStorage.getItem('theme-image') ?? img) + ')'}}/>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

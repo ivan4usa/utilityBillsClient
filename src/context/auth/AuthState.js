@@ -4,6 +4,7 @@ import {AuthReducer} from "./AuthReducer";
 import axios from "axios";
 import {LOGIN, LOGOUT, REGISTER} from "./AuthConstants";
 import {toast} from "react-toastify";
+import {configForAxiosRequests} from "../global/Configs";
 
 export const AuthState = ({children}) => {
     const initialState = {
@@ -16,7 +17,7 @@ export const AuthState = ({children}) => {
     const [state, dispatch] = useReducer(AuthReducer, initialState);
 
     const login = async (inputs) => {
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/user/login', inputs)
+        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/user/login', inputs, configForAxiosRequests)
             .then(response => {
                 if (typeof response.data === "object") {
                     const expirationDate = response.data.expirationDate;
@@ -53,7 +54,7 @@ export const AuthState = ({children}) => {
     const register = async (inputs) => {
         const sendInputs = {...inputs};
         delete sendInputs.repeat;
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/user/register', sendInputs)
+        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/user/register', sendInputs, configForAxiosRequests)
             .then(response => {
                 if (response.data === 'success') {
                     toast.success("User successfully registered");

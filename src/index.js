@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import {AuthState} from "./context/auth/AuthState";
+import {AllRequestsInterceptor} from "./interceptors/AllRequestsInterceptor";
+
+// For GET requests
+AllRequestsInterceptor();
 
 ReactDOM.render(
     <AuthState>

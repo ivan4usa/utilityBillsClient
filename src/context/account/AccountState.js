@@ -4,7 +4,6 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {AccountContext} from "./AccountContext";
 import {ADD_ACCOUNT, DELETE_ACCOUNT, EDIT_ACCOUNT, GET_ACCOUNT_BY_ID, GET_ACCOUNTS} from "./AccountConstants";
-import {configForAxiosRequests} from "../global/Configs";
 
 export const AccountState = ({children}) => {
     const initialState = {
@@ -19,7 +18,7 @@ export const AccountState = ({children}) => {
     const getAllAccounts = async () => {
         const userId = localStorage.getItem('userId');
 
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/account/all', userId, configForAxiosRequests)
+        await axios.post('/api/account/all', userId)
             .then(response => {
                 dispatch({
                     type: GET_ACCOUNTS,
@@ -32,7 +31,7 @@ export const AccountState = ({children}) => {
     }
 
     const addAccount = async (account) => {
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/account/add', account, configForAxiosRequests)
+        await axios.post('/api/account/add', account)
             .then(response => {
                 dispatch({
                     type: ADD_ACCOUNT,
@@ -45,7 +44,7 @@ export const AccountState = ({children}) => {
     }
 
     const editAccount = async (account) => {
-        await axios.put(process.env.REACT_APP_SERVER_URI + '/api/account/update', account, configForAxiosRequests)
+        await axios.put('/api/account/update', account)
             .then(response => {
                 dispatch({
                     type: EDIT_ACCOUNT,
@@ -58,7 +57,7 @@ export const AccountState = ({children}) => {
     }
 
     const deleteAccount = async (id) => {
-        await axios.delete(process.env.REACT_APP_SERVER_URI + `/api/account/delete/${id}`, configForAxiosRequests)
+        await axios.delete(`/api/account/delete/${id}`)
             .then(() => {
                 dispatch({
                     type: DELETE_ACCOUNT,
@@ -71,7 +70,7 @@ export const AccountState = ({children}) => {
     }
 
     const findAccountById = async (id) => {
-        await axios.get(process.env.REACT_APP_SERVER_URI + `/api/account/${id}`, configForAxiosRequests)
+        await axios.get(`/api/account/${id}`)
             .then((response) => {
                 dispatch({
                     type: GET_ACCOUNT_BY_ID,
@@ -84,7 +83,7 @@ export const AccountState = ({children}) => {
     }
 
     const fetchAccountById = (id) => {
-        return  axios.get(process.env.REACT_APP_SERVER_URI + `/api/account/${id}`, configForAxiosRequests);
+        return  axios.get(`/api/account/${id}`);
     }
 
     const {accounts, currentAccount} = state;

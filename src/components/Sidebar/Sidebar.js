@@ -13,7 +13,11 @@ function Sidebar({image, background}) {
     const {getAllHouses, houses} = useContext(HouseContext);
 
     React.useEffect(() => {
-        getAllHouses();
+        if (localStorage.getItem('token')) {
+
+            // console.log('ggg')
+            getAllHouses();
+        }
     }, []);
 
     const activeRoute = (routeName) => location.pathname === routeName ? "active" : "";

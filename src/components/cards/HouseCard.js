@@ -1,6 +1,4 @@
 import React, {useContext, useEffect, useState} from "react";
-
-// react-bootstrap components
 import {Button, Card, Col, Form, FormControl, FormGroup, FormLabel, Modal, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit, faFlag, faLocationArrow, faTimes, faTrash} from "@fortawesome/free-solid-svg-icons";

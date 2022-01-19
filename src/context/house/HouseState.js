@@ -4,7 +4,6 @@ import {toast} from "react-toastify";
 import axios from "axios";
 import {ADD_HOUSE, DELETE_HOUSE, EDIT_HOUSE, GET_HOUSE_BY_ID, GET_HOUSES, GET_STATISTICS} from "./HouseConstants";
 import {HouseContext} from "./HouseContext";
-import {configForAxiosRequests} from "../global/Configs";
 
 export const HouseState = ({children}) => {
     const initialState = {
@@ -18,8 +17,7 @@ export const HouseState = ({children}) => {
 
     const getAllHouses = async () => {
         const userId = +localStorage.getItem('userId');
-
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/house/all', userId, configForAxiosRequests)
+        await axios.post('/api/house/all', userId)
             .then(response => {
                 dispatch({
                     type: GET_HOUSES,
@@ -32,7 +30,7 @@ export const HouseState = ({children}) => {
     }
 
     const getHouseById = async (id) => {
-       await axios.get(process.env.REACT_APP_SERVER_URI + `/api/house/${id}`, configForAxiosRequests)
+       await axios.get(`/api/house/${id}`)
             .then(response => {
                 dispatch({
                     type: GET_HOUSE_BY_ID,
@@ -45,7 +43,7 @@ export const HouseState = ({children}) => {
     }
 
     const addHouse = async (house) => {
-        await axios.post(process.env.REACT_APP_SERVER_URI + `/api/house/add`, house, configForAxiosRequests)
+        await axios.post(`/api/house/add`, house)
             .then(response => {
                 dispatch({
                     type: ADD_HOUSE,
@@ -58,7 +56,7 @@ export const HouseState = ({children}) => {
     }
 
     const editHouse = async (house) => {
-        await axios.put(process.env.REACT_APP_SERVER_URI + `/api/house/update`, house, configForAxiosRequests)
+        await axios.put(`/api/house/update`, house)
             .then(response => {
                 dispatch({
                     type: EDIT_HOUSE,
@@ -71,7 +69,7 @@ export const HouseState = ({children}) => {
     }
 
     const deleteHouse = async (id) => {
-        await axios.delete(process.env.REACT_APP_SERVER_URI + `/api/house/${id}`, configForAxiosRequests)
+        await axios.delete(`/api/house/${id}`)
             .then(() => {
                 dispatch({
                     type: DELETE_HOUSE,
@@ -84,7 +82,7 @@ export const HouseState = ({children}) => {
     }
 
     const getStatisticsData = async (userId, year) => {
-        await axios.post(process.env.REACT_APP_SERVER_URI + '/api/house/search-statistics', {userId, year}, configForAxiosRequests)
+        await axios.post('/api/house/search-statistics', {userId, year})
             .then(response => {
                 dispatch({
                     type: GET_STATISTICS,
